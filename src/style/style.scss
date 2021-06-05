@@ -1,0 +1,342 @@
+// core stylesheet for glide.js
+@import "../../node_modules/@glidejs/glide/dist/css/glide.core.min.css";
+// theme stylesheet for glide.js
+@import "../../node_modules/@glidejs/glide/dist/css/glide.theme.min.css";
+
+
+// google fonts
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Roboto&family=Source+Sans+Pro&display=swap');
+
+// fonts
+$header-font: "JetBrains Mono";
+$main-font: "Roboto";
+
+// colors
+$blue-main: #0073ff;
+$green-main: #bbff6e;
+$green-light: #e6ffb3;
+$green-lighter: #edffe6;
+
+$grey-light-lighter: #efefef;
+$grey-light-mid: #dedede;
+$grey-light-dark: #bcbcbc;
+
+$grey-darker: #1d1f23;
+$grey-dark-mid: #21252b;
+$grey-dark-lighter: #282c34;
+
+
+$discord-color: #7289da;
+$github-color: #24292e;
+$darkmode-color: #ffcf2b;
+
+
+$common-shadow: 0 0 20px rgba(0,0,0,0.3);
+$dark-transition: .4s background-color, .4s color, .4s background;
+$responsive-transition: .4s font-size;
+
+// responsive stuff
+@media only screen and (min-width: 1500px) {
+  div#content-wrapper, header#main-header {
+    width: 65%;
+  }
+
+  header#main-header {
+    ul li {
+      font-size: 1.2em;
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+
+}
+
+
+body {
+  font-family: $main-font;
+  margin: 0;
+  opacity: 1;
+  padding: 0;
+  transition: $dark-transition, .2s opacity;
+
+  // DARK MODE STYLES
+  &.dark-mode {
+    background-color: $grey-dark-mid;
+
+    h1, h2, h3, h4, h5, h6 {
+      color: $green-main;
+    }
+
+    div#header-wrapper {
+      background-color: $grey-darker;
+
+      .fa-github { 
+        color: $grey-light-lighter; 
+      }
+
+      .fa-adjust {
+        color: $grey-light-lighter;
+      }
+
+      ul li a {
+        color: $green-main;
+
+        &:hover {
+          background-color: $grey-dark-mid;
+        }
+      }
+
+      p {
+        color: $green-main;
+      }
+    }
+
+    div#content-wrapper {
+      background-color: $grey-dark-mid;
+    }
+
+    div#events .event-post {
+      background-color: $grey-dark-lighter;
+      border-left: 10px solid $green-main;
+      color: $grey-light-lighter;
+    }
+  }
+
+  // LIGHT MODE STYLES
+  &.light-mode {
+    h1, h2, h3, h4, h5, h6 {
+      color: $blue-main;
+    }
+
+    div#events .event-post {
+      border-left: 10px solid $blue-main;
+      background-color: $grey-light-lighter;
+      color: $grey-darker;
+    }
+
+    div#header-wrapper {
+      background-color: $grey-light-lighter;
+      
+      .fa-github { 
+        color: $github-color;
+      }
+
+      .fa-adjust {
+        color: $grey-darker;
+      }
+
+      ul li a {
+        color: $blue-main;
+
+        &:hover {
+          background-color: $grey-light-mid;
+        }
+      }
+
+      p {
+        color: $blue-main;
+      }
+    }
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $header-font;
+  font-weight: bold;
+}
+
+
+// Header related stuff
+div#header-wrapper {
+  //box-shadow: $common-shadow;
+  transition: $dark-transition;
+  z-index: 9;
+}
+
+div#header-background-wrapper {
+  background: linear-gradient(90deg, $blue-main, $green-main);
+  box-shadow: $common-shadow;
+  padding-bottom: 10px;
+}
+
+header#main-header {
+  align-items: stretch;
+  display: flex;
+  font-family: $header-font;
+  margin: 0 auto;
+  width: 90%;
+
+  span#main-logo {
+    img {
+      transition: transform .4s;
+    }
+
+    img:hover {
+      cursor: pointer;
+      transform: rotate(-10deg) scale(1.1);
+    }
+  }
+
+  p.logo-text {
+    display: flex;
+    flex-direction: column;
+    transition: $responsive-transition;
+  }
+
+  span.logo {
+    //color: $blue-main;
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-right: 1.6em;
+  }
+
+  span.logo-desc {
+    font-size: .8em;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a#logo-link {
+    align-items: center;
+    display: flex;
+    flex-grow: 2;
+  }
+
+  ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+
+    li {
+      display: flex;
+      transition: $responsive-transition;
+
+      a {
+        align-items: center;
+        color: $blue-main;
+        display: flex;
+        justify-content: center;
+        padding: 0 1.5em;
+        transition: .4s color, .4s background-color;
+
+        &:hover {
+          box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+          color: $grey-light-lighter;
+          font-weight: bold;
+        }
+      }
+
+      i {
+        font-size: 1.6em;
+        transition: .4s color;
+
+        // icon colors
+        &.fa-discord { color: $discord-color; }
+        
+        &.fa-github { transition: $dark-transition; }
+      }
+
+      &:hover {
+        background-color: rgba(0,0,0,0);
+        color: $grey-light-lighter;
+        //border-bottom: 5px solid $green-main;
+      }
+    }
+  }
+}
+
+
+// Carousel related stuff
+
+#carousel{
+  display: flex;
+  height: 45vh;
+
+  button {
+    border: 0px;
+    border-radius: 20px;
+    font-family: $header-font;
+    font-size: 1.5em;
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  ul.glide__slides {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .glide__slide {
+    filter: blur(5px);
+    transition: .2s;
+    height: 45vh;
+    width: 100%;
+
+    img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .glide__slide--active {
+    filter: none;
+  }
+} 
+
+// main content
+
+div#content-wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto 3em auto;
+  padding: 2.0em;
+  transition: $dark-transition;
+  width: 90%;
+
+  div {
+    flex: 0 0 25%;
+  }
+
+  div#events {
+    margin-right: 2em;
+    flex-grow: 3;
+
+    .event-post {
+      border-radius: 5px;
+      margin: 1em 0;
+      padding: 1em 2em;
+      text-align: justify;
+      transition: $dark-transition;
+
+      .event-date {
+        background-color: #24292e;
+        border-radius: 5px;
+        color: $grey-light-lighter;
+        font-family: $header-font;
+        font-size: 1.0em;
+        padding: .2em;
+      }
+    }
+  }
+}
+
+
+// footer stuff
+footer#main-footer {
+  align-items: center;
+  background-color: $grey-darker;
+  box-shadow: inset $common-shadow;
+  color: $green-lighter; // I don't think I like this light color
+  display: flex;
+  font-family: $header-font;
+  justify-content: center;
+  text-align: center;
+  height: 20vh;
+}
+
