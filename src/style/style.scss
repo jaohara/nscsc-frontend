@@ -13,7 +13,10 @@ $main-font: "Roboto";
 
 // colors
 $blue-main: #0073ff;
+$blue-main-darker: #003980;
 $green-main: #bbff6e;
+$green-main-dark: #8CBF52;
+$green-main-darker: #2F401B;
 $green-light: #e6ffb3;
 $green-lighter: #edffe6;
 
@@ -53,8 +56,10 @@ $responsive-transition: .4s font-size;
 }
 
 
+// main body and dark/light mode stuff
 body {
-  font-family: $main-font;
+  //font-family: $main-font;
+  font-family: $header-font;
   margin: 0;
   opacity: 1;
   padding: 0;
@@ -65,6 +70,32 @@ body {
     background-color: $grey-dark-mid;
 
     h1, h2, h3, h4, h5, h6 {
+      color: $green-main;
+    }
+    
+    button:not(.glide__bullet) {
+      background-color: $green-main;
+      box-shadow: 0px 4px $green-main-dark;
+      color: $grey-dark-mid;
+
+      &:hover {
+        box-shadow: 0px 2px $green-main-dark;
+      }
+
+      &:active {
+        background-color: $green-main-dark;
+        box-shadow: 0px 1px $green-main-dark;
+        transform: translateY(3px);
+      }
+    }
+
+    // todo: input hover effects?
+    input {
+      background-color: $grey-dark-lighter;
+      color: $grey-light-lighter;
+    }
+
+    label {
       color: $green-main;
     }
 
@@ -101,11 +132,43 @@ body {
       border-left: 10px solid $green-main;
       color: $grey-light-lighter;
     }
+
+    div#page-body-wrapper {
+      color: $grey-light-lighter;
+    }
+
+    .about-card i {
+      color: $green-main;
+    }
   }
 
   // LIGHT MODE STYLES
   &.light-mode {
     h1, h2, h3, h4, h5, h6 {
+      color: $blue-main;
+    }
+
+    button:not(.glide__bullet) {
+      background-color: $blue-main;
+      box-shadow: 0px 4px $blue-main-darker;
+
+      &:hover {
+        box-shadow: 0px 2px $blue-main-darker;
+      }
+
+      &:active {
+        background-color: $blue-main-darker;
+        box-shadow: 0px 1px $blue-main-darker;
+        transform: translateY(3px);
+      }
+    }
+
+    input {
+      background-color: $grey-light-lighter;
+      color: $grey-darker;
+    }
+
+    label {
       color: $blue-main;
     }
 
@@ -138,7 +201,51 @@ body {
         color: $blue-main;
       }
     }
+
+    div#page-body-wrapper {
+      color: $grey-darker;
+    }
+
+    .about-card i {
+      color: $blue-main;
+    }
   }
+}
+
+div#page-wrapper {
+  transition: .4s opacity;
+}
+
+
+// input Stuff
+button:not(.glide__bullet) {
+  border: 0;
+  border-radius: 5px;
+  color: $grey-light-lighter;
+  cursor: pointer;
+  font-family: $header-font;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: .5em 1em;
+  transition: .3s box-shadow, .3s transform, .1s text-shadow, .3s background-color;
+
+  &:hover {
+    box-shadow: 0px 2px #003980;
+    transform: translateY(2px);
+  }
+}
+
+input {
+  border: 0;
+  border-radius: 5px;
+  font-family: $header-font;
+  font-size: 1.2em;
+  outline: none;
+  padding: .5em 1em;
+}
+
+label {
+  font-weight: bold;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -149,7 +256,6 @@ h1, h2, h3, h4, h5, h6 {
 
 // Header related stuff
 div#header-wrapper {
-  //box-shadow: $common-shadow;
   transition: $dark-transition;
   z-index: 9;
 }
@@ -169,12 +275,12 @@ header#main-header {
 
   span#main-logo {
     img {
-      transition: transform .4s;
+      transition: transform .2s;
     }
 
     img:hover {
       cursor: pointer;
-      transform: rotate(-10deg) scale(1.1);
+      transform: rotate(-6deg) scale(1.1);
     }
   }
 
@@ -185,7 +291,6 @@ header#main-header {
   }
 
   span.logo {
-    //color: $blue-main;
     font-size: 1.6em;
     font-weight: bold;
     margin-right: 1.6em;
@@ -250,7 +355,6 @@ header#main-header {
 
 
 // Carousel related stuff
-
 #carousel{
   display: flex;
   height: 45vh;
@@ -290,7 +394,6 @@ header#main-header {
 } 
 
 // main content
-
 div#content-wrapper {
   display: flex;
   justify-content: space-around;
@@ -326,6 +429,34 @@ div#content-wrapper {
   }
 }
 
+// about page styling
+div#about-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  #about-cards {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+    .about-card {
+      margin: 5em;
+      text-align: center;
+      width: 40ch;
+
+      p {
+        text-align: justify;
+      }
+    }
+
+    i {
+      font-size: 4.0em;
+      text-align: center;
+    }
+  }
+}
+
 
 // footer stuff
 footer#main-footer {
@@ -338,5 +469,6 @@ footer#main-footer {
   justify-content: center;
   text-align: center;
   height: 20vh;
+  width: 100%;
 }
 
