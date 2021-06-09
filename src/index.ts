@@ -17,6 +17,9 @@ const fadeOutToggle  = document.getElementById("fadeout");
 const navLinks       = document.getElementsByClassName("nav-link");
 const logoLink       = document.getElementById("logo-link") as HTMLAnchorElement;
 
+// state variables
+let inTransition     = false;
+
 // wait until everything is loaded
 window.addEventListener("load", () => {
   pageWrapper.style.opacity = "1";
@@ -30,43 +33,48 @@ for (let link of navLinks) {
   link.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let link = <HTMLAnchorElement> event.target;
+    if (!inTransition) {
 
-    let pageWrapperCallback = () => {
-      fetch(link.href)
-      .then(response => response.text())
-      .then(data =>  data)
-      .then(data => {
-        pageWrapper.removeEventListener("transitionend", pageWrapperCallback);
-        pageBody.innerHTML = data;
-        pageWrapperOpacityToggle();
-      });
+      let link = <HTMLAnchorElement> event.target;
+
+      let pageWrapperCallback = () => {
+        fetch(link.href)
+        .then(response => response.text())
+        .then(data =>  data)
+        .then(data => {
+          pageWrapper.removeEventListener("transitionend", pageWrapperCallback);
+          pageBody.innerHTML = data;
+          pageWrapperOpacityToggle();
+        });
+      }
+
+      pageWrapperOpacityToggle();
+      pageWrapper.addEventListener("transitionend", pageWrapperCallback);
     }
-
-    pageWrapperOpacityToggle();
-    pageWrapper.addEventListener("transitionend", pageWrapperCallback);
   });
 }
 
 logoLink?.addEventListener("click", (event) => {
   event.preventDefault();
 
-  // man, I don't like how this is reused, but I don't know how else to do this.
-  let pageWrapperCallback = () => {
-    fetch(logoLink.href)
-    .then(response => response.text())
-    .then(data =>  data)
-    .then(data => {
-      pageWrapper.removeEventListener("transitionend", pageWrapperCallback);
-      pageBody.innerHTML = data;
-      new Glide('.glide', {autoplay: 10000}).mount();
+  if (!inTransition) {
+    // man, I don't like how this is reused, but I don't know how else to do this.
+    let pageWrapperCallback = () => {
+      fetch(logoLink.href)
+      .then(response => response.text())
+      .then(data =>  data)
+      .then(data => {
+        pageWrapper.removeEventListener("transitionend", pageWrapperCallback);
+        pageBody.innerHTML = data;
+        new Glide('.glide', {autoplay: 10000}).mount();
 
-      setTimeout(() => pageWrapperOpacityToggle(), 500);
-    });
+        setTimeout(() => pageWrapperOpacityToggle(), 500);
+      });
+    }
+
+    pageWrapperOpacityToggle();
+    pageWrapper.addEventListener("transitionend", pageWrapperCallback);
   }
-
-  pageWrapperOpacityToggle();
-  pageWrapper.addEventListener("transitionend", pageWrapperCallback);
 });
 
 // setup darkmode
@@ -97,5 +105,12 @@ fadeOutToggle?.addEventListener("click", (event) => {
 });
 
 function pageWrapperOpacityToggle() {
+  inTransition = true;
   pageWrapper.style.opacity = pageWrapper.style.opacity === "1" ? "0" : "1";
+  pageWrapper.addEventListener("transitionend", pageWrapperTransitionEndCallback);
+}
+
+function pageWrapperTransitionEndCallback() {
+  inTransition = false;
+  pageWrapper.removeEventListener("transitionend", pageWrapperTransitionEndCallback);
 }
